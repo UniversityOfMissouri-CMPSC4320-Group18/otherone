@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f4656c7fb65e44fb8d3d10ebbe7abfc7" Name="Diagram1">
+        <EntityTypeShape EntityType="iClothingModel.Admin" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="iClothingModel.Brand" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="iClothingModel.Category" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="iClothingModel.Customers" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="iClothingModel.Department" Width="1.5" PointX="0.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="iClothingModel.Email" Width="1.5" PointX="9.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="iClothingModel.ItemDelivery" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="iClothingModel.OrderStatus" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="iClothingModel.Product" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="iClothingModel.ShoppingCarts" Width="1.5" PointX="3.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="iClothingModel.UserComments" Width="1.5" PointX="8.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="iClothingModel.UserQuery" Width="1.5" PointX="8.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="iClothingModel.Users" Width="1.5" PointX="6" PointY="3.5" IsExpanded="true" />
+        <AssociationConnector Association="iClothingModel.FK__Product__product__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="iClothingModel.FK__Category__catego__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="iClothingModel.FK__Product__product__4AB81AF0" ManuallyRouted="false" />
+        <AssociationConnector Association="iClothingModel.FK__OrderStat__order__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="iClothingModel.FK__Users__userCusto__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="iClothingModel.FK__OrderStat__itemD__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="iClothingModel.FK__Users__userCart__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="iClothingModel.FK__UserComme__comme__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="iClothingModel.FK__UserQuery__query__4F7CD00D" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
