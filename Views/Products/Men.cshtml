@@ -1,0 +1,176 @@
+﻿@model IEnumerable<WebApplication1.Models.Product>
+
+@{
+    ViewBag.Title = "Men";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<div class="modal-body row">
+    <div class="col-sm-2">
+        <div class="sticky-top">
+
+            <div class="btn-group-vertical">
+
+
+                <h3 data-bs-toggle="collapse" data-bs-target=".menuitems" style="cursor:pointer">Men</h3>
+                <div style="text-align:right;">
+
+                    @foreach (WebApplication1.Models.Category category in ViewBag.Category)
+                    {
+                        <h5 type="button" class="btn menuitems alignright collapse">@category.categoryName</h5>
+                    }
+                </div>
+                <h3 data-bs-toggle="collapse" data-bs-target=".menuitems2" style="cursor:pointer">Women</h3>
+                <div style="text-align:right;">
+
+                    @foreach (WebApplication1.Models.Category category in ViewBag.Category)
+                    {
+                        <h5 type="button" class="btn menuitems2 alignright collapse">@category.categoryName</h5>
+
+                    }
+                </div>
+                <h3 data-bs-toggle="collapse" data-bs-target=".menuitems3" style="cursor:pointer">Kids</h3>
+                <div style="text-align:right;">
+
+                    @foreach (WebApplication1.Models.Category category in ViewBag.Category)
+                    {
+                        <h5 type="button" class="btn menuitems3 alignright collapse">@category.categoryName</h5>
+
+                    }
+                </div>
+                <button id="myButton">Click Here</button>
+
+                <script>
+                    document.getElementById("myButton").addEventListener("click", function () {
+                        alert("Success")
+                        // Send AJAX request with the variable
+                        fetch("/Products/Search", {
+                            method: "POST",
+                            body: JSON.stringify({ productCategory: "Shirt" }) // Send variable in request body
+                        })
+                            .then(response => {
+                                // Handle response from the controller
+                                alert(response)
+                            })
+                            .catch(error => {
+                                console.error(error); // Handle errors
+                            });
+                    });
+                </script>
+
+            </div>
+
+
+
+
+        </div>
+    </div>
+    <div class="col-lg-10">
+        <product-page>
+
+            <div class="container">
+                <form action="@Url.Action("Men", "Products")" method="get">
+                    <label for="productName">Product Name:</label>
+                    <input type="text" id="productName" name="name">
+                    <button type="submit">Search Products</button>
+
+                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="productCategory">
+                        <option selected value="">All Categories</option>
+                        @foreach (WebApplication1.Models.Category category in ViewBag.Category)
+                        {
+                            <option value=@category.categoryID>@category.categoryName</option>
+                        }
+                    </select>
+                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="productBrand">
+                        <option selected value="">All Brands</option>
+                        @foreach (WebApplication1.Models.Brand brand in ViewBag.Brand)
+                        {
+                            <option value=@brand.brandID>@brand.brandName</option>
+                        }
+                    </select>
+                </form>
+                <div class="row row-cols-3">
+                    @foreach (WebApplication1.Models.Product product in Model)
+                    {
+                        
+            
+
+                    <div class="col">
+                        <div class="card">
+                            <img class="card-img-top" src=@product.productImage />
+                            <div class="card-body">
+                                <h5 class="card-title">@product.productName</h5>
+                                <p class="card-text">@product.productDescription</p>
+                                @if (WebApplication1.Controllers.UsersController.customerID != "")
+                                {
+
+                                    <button class="btn btn-primary" id=@product.productID>Add to Cart</button>
+
+                                    <script>
+                                        document.getElementById("@product.productID").addEventListener("click", function () {
+                                            alert("Success")
+                                            var url = "/Products/AddItem?variableName=" + '@product.productID' + "";
+                                            fetch(url, {
+                                                method: "POST"
+                                            })
+
+                                        });
+                                    </script>
+                                    <a href="#" class="btn btn-primary">BUY</a>
+                                }
+                                else
+                                {
+                                    <h5>Requires Login</h5>
+                                }
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    }
+
+
+</div>
+
+            </div>
+
+
+
+
+
+
+
+        </product-page>
+    </div>
+</div>
+
+
+
+<style>
+    .card{
+        padding:.5rem;
+        margin:1rem;
+    }
+    .product-image{
+
+
+    }
+    .container{
+
+
+
+   }
+
+    .card-img-top {
+        width: 100%;
+        height: 15vw;
+        object-fit: cover;
+    }
+
+
+    .alignright{
+        text-align: right !important;
+    }
+</style>

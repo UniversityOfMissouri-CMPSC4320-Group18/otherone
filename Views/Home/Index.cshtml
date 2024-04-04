@@ -1,57 +1,28 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-@model IEnumerable<WebApplication1.Models.Customers>
-
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
-
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
-    </div>
-
-
-    <div>
-        <h4>Cusgotmers</h4>
-        <hr />
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th>CustomerID</th>
-                <th>ContactName</th>
-                <th>City</th>
-                <th>country</th>
-
-
-            </tr>
-            @foreach(WebApplication1.Models.Customers customer in Model)
-            {
-                <tr>
-                    <td>@customer.customerID</td>
-                </tr>
-            }
-        </table>
-    </div>
-</main>
+<!--<a class="btn btn-primary" role="button" asp-controller="CustomerLogin" asp-action="CustomerLoginForm">
+    login
+</a>
+<a class="btn btn-primary" role="button" asp-controller="CustomerRegistration" asp-action="CustomerRegisterForm">
+    register
+</a>
+<a class="btn btn-primary" role="button" asp-controller="ProductListWindow" asp-action="ProductListWindow">
+    productlistwindow
+</a>
+-->
+<div class="homepageImageSelection">
+    <a role="button" asp-controller="ProductListWindow" asp-action="ProductListWindow">
+        <img src="~/Content/images/home-man.png" alt="shirt-man" />
+    </a>
+    <h2 class="menFloatingText">Men</h2>
+    <a role="button" asp-controller="ProductListWindow" asp-action="ProductListWindow">
+        <img src="~/Content/images/home-woman.png" alt="shirt-woman" />
+    </a>
+    <h2 class="womenFloatingText">Women</h2>
+    <a role="button" asp-controller="ProductListWindow" asp-action="ProductListWindow">
+        <img src="~/Content/images/home-kid.png" alt="shirt-kid" />
+    </a>
+    <h2 class="kidsFloatingText">Kids</h2>
+</div>

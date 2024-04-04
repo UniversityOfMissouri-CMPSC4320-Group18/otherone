@@ -17,7 +17,7 @@ namespace WebApplication1.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Department()
         {
-            this.Category = new HashSet<Category>();
+            this.DepartmentItemBridge = new HashSet<DepartmentItemBridge>();
         }
     
         public string departmentID { get; set; }
@@ -25,6 +25,6 @@ namespace WebApplication1.Models
         public string departmentDescription { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Category> Category { get; set; }
+        public virtual ICollection<DepartmentItemBridge> DepartmentItemBridge { get; set; }
     }
 }

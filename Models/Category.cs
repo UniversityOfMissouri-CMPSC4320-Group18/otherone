@@ -23,9 +23,7 @@ namespace WebApplication1.Models
         public string categoryID { get; set; }
         public string categoryName { get; set; }
         public string categoryDescription { get; set; }
-        public string categoryDepartment { get; set; }
     
-        public virtual Department Department { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Product { get; set; }
     }

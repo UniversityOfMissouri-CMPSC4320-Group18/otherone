@@ -17,6 +17,7 @@ namespace WebApplication1.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ShoppingCarts()
         {
+            this.ShoppingCartItemBridge = new HashSet<ShoppingCartItemBridge>();
             this.Users = new HashSet<Users>();
         }
     
@@ -24,6 +25,8 @@ namespace WebApplication1.Models
         public Nullable<double> cartProductPrice { get; set; }
         public Nullable<int> cartProductQty { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ShoppingCartItemBridge> ShoppingCartItemBridge { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Users> Users { get; set; }
     }

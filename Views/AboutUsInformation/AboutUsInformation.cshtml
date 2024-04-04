@@ -1,0 +1,81 @@
+﻿@{
+  ViewData["Title"] = "About Us";
+}
+
+@using Group18__iCLOTHINGApp.Models
+@model Group18__iCLOTHINGApp.Models.AboutUs
+
+<style>
+  .container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 5vw;
+    margin-bottom: 5vh;
+  }
+
+  .image {
+    width: 200px;
+    height: 150px;
+  }
+
+  .description {
+    width: 200px;
+    height: 200px;
+    font-size: small;
+  }
+
+  .outtercontainer {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 5vw;
+  }
+</style>
+
+<div style="width: 100%">
+  <div class="outtercontainer">
+    <div>
+      <div class="container">
+        <div>
+          <h3>ADDRESS</h3>
+          <span class="description" style="white-space: pre-line">@Model.companyAddress</span>
+        </div>
+        <img class="image" src="~/images/company-address-image.png" alt="company-address-image" />
+      </div>
+
+      <div class="container">
+
+        <img class="image" src="~/images/shipping-policy-image.png" alt="shipping-policy-image" />
+        <div>
+          <h3>SHIPPING</h3>
+          <span class="description" style="white-space: pre-line">@Model.companyShippingPolicy</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="container">
+        <div>
+          <h3>RETURN</h3>
+          <span class="description" style="white-space: pre-line">@Model.companyReturnPolicy</span>
+        </div>
+        <img class="image" src="~/images/return-policy-image.png" alt="return-policy-image" />
+      </div>
+
+      <div class="container">
+
+        <img class="image" src="~/images/contact-information.png" alt="contact-information" />
+        <div>
+          <h3>CONTACT</h3>
+          <span class="description" style="white-space: pre-line">@Model.companyContactInfo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h3>Description</h3>
+  <h6>@Model.companyBusinessDescription</h6>
+</div>

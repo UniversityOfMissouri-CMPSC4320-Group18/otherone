@@ -13,10 +13,10 @@ namespace WebApplication1.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class iClothingEntities : DbContext
+    public partial class iClothingEntities1 : DbContext
     {
-        public iClothingEntities()
-            : base("name=iClothingEntities")
+        public iClothingEntities1()
+            : base("name=iClothingEntities1")
         {
         }
     
@@ -30,13 +30,16 @@ namespace WebApplication1.Models
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Customers> Customers { get; set; }
         public virtual DbSet<Department> Department { get; set; }
+        public virtual DbSet<DepartmentItemBridge> DepartmentItemBridge { get; set; }
         public virtual DbSet<Email> Email { get; set; }
         public virtual DbSet<ItemDelivery> ItemDelivery { get; set; }
         public virtual DbSet<OrderStatus> OrderStatus { get; set; }
         public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<ShoppingCartItemBridge> ShoppingCartItemBridge { get; set; }
         public virtual DbSet<ShoppingCarts> ShoppingCarts { get; set; }
         public virtual DbSet<UserComments> UserComments { get; set; }
         public virtual DbSet<UserQuery> UserQuery { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+
     }
 }

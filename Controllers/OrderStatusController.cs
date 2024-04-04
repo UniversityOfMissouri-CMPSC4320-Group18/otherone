@@ -12,7 +12,7 @@ namespace WebApplication1.Controllers
 {
     public class OrderStatusController : Controller
     {
-        private iClothingEntities db = new iClothingEntities();
+        private iClothingEntities1 db = new iClothingEntities1();
 
         // GET: OrderStatus
         public ActionResult Index()

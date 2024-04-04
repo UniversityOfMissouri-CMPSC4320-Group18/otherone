@@ -14,15 +14,30 @@ namespace WebApplication1.Models
     
     public partial class Product
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Product()
+        {
+            this.DepartmentItemBridge = new HashSet<DepartmentItemBridge>();
+            this.ShoppingCartItemBridge = new HashSet<ShoppingCartItemBridge>();
+        }
+    
         public string productID { get; set; }
         public string productName { get; set; }
         public string productDescription { get; set; }
         public double productPrice { get; set; }
         public int productQuantity { get; set; }
         public string productBrand { get; set; }
+        public string productImage { get; set; }
         public string productCategory { get; set; }
     
         public virtual Brand Brand { get; set; }
         public virtual Category Category { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DepartmentItemBridge> DepartmentItemBridge { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ShoppingCartItemBridge> ShoppingCartItemBridge { get; set; }
     }
+
+
+
 }

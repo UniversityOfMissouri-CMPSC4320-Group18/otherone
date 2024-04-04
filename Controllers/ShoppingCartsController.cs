@@ -12,13 +12,41 @@ namespace WebApplication1.Controllers
 {
     public class ShoppingCartsController : Controller
     {
-        private iClothingEntities db = new iClothingEntities();
+        private iClothingEntities1 db = new iClothingEntities1();
 
         // GET: ShoppingCarts
         public ActionResult Index()
         {
             return View(db.ShoppingCarts.ToList());
         }
+
+
+        [HttpPost]
+        public static void AddItem(String productID) // Access variable with request.VariableName
+        {
+
+            iClothingEntities1 db = new iClothingEntities1();
+            WebApplication1.Models.ShoppingCartItemBridge newitem = new WebApplication1.Models.ShoppingCartItemBridge();
+            newitem.productID = productID;
+            newitem.cartID = WebApplication1.Controllers.UsersController.customerID;
+            newitem.bridgeID = WebApplication1.Controllers.UsersController.GetRandomHexNumber(10);
+            db.ShoppingCartItemBridge.Add(newitem);
+            db.SaveChanges();
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // GET: ShoppingCarts/Details/5
         public ActionResult Details(string id)

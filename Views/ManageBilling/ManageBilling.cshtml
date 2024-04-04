@@ -1,0 +1,49 @@
+﻿@using System.Collections;
+@{
+    ViewData["Title"] = "Manage Billing";
+}
+@using Group18__iCLOTHINGApp.Models;
+@using Group18__iCLOTHINGApp.Controllers;
+@model Group18__iCLOTHINGApp.Models.OrderStatus;
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+
+<div>
+    <input type="button" value="Create Email" onclick="location.href='@Url.Action("EmailForm", "ManageBilling")'" />
+    <h3>Orders ready to be verified</h3>
+        <table style="width: 100%">
+            <tr>
+                <th>StatusId</th>
+                <th>Status</th>
+                <th>StatusDate</th>
+                <th>Actions</th>
+            </tr>
+            @foreach (OrderStatus item in ManageBillingController.getOrderStatuses())
+            {
+                <tr>
+                    <td>@item.statusID</td>
+                    <td>@item.status</td>
+                    <td>@item.statusDate</td>
+                    <td>
+                        @if (@item.status == "Confirmed")
+                        {
+                            <input type="button" value="verify" onclick="location.href='@Url.Action("SendEmail", "ManageBilling", new { statusID = item.statusID })'" />
+                        }
+                        else if (@item.status == "Verified")
+                        {
+                            <input type="button" value="ship" onclick="location.href='@Url.Action("DeliverItem", "ManageBilling",  new { statusID = item.statusID })'" />
+                        }
+                        else if (@item.status == "Shipped")
+                        {
+                            <span>Shipped</span>
+                        }
+
+                    </td>
+                </tr>
+            }
+        </table>
+</div>

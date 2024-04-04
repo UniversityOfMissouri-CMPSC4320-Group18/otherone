@@ -29,7 +29,6 @@
           <Property Name="categoryID" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="categoryName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="categoryDescription" Type="varchar(max)" />
-          <Property Name="categoryDepartment" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="Customers">
           <Key>
@@ -46,9 +45,17 @@
           <Key>
             <PropertyRef Name="departmentID" />
           </Key>
-          <Property Name="departmentID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="departmentID" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="departmentName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="departmentDescription" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="DepartmentItemBridge">
+          <Key>
+            <PropertyRef Name="bridgeID" />
+          </Key>
+          <Property Name="bridgeID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="departmentID" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="productID" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="Email">
           <Key>
@@ -86,7 +93,16 @@
           <Property Name="productPrice" Type="float" Nullable="false" />
           <Property Name="productQuantity" Type="int" Nullable="false" />
           <Property Name="productBrand" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="productImage" Type="varchar(max)" />
           <Property Name="productCategory" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ShoppingCartItemBridge">
+          <Key>
+            <PropertyRef Name="bridgeID" />
+          </Key>
+          <Property Name="bridgeID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="cartID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="productID" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="ShoppingCarts">
           <Key>
@@ -126,15 +142,27 @@
           <Property Name="userCustomerData" Type="varchar" MaxLength="10" />
           <Property Name="userCart" Type="varchar" MaxLength="10" />
         </EntityType>
-        <Association Name="FK__Category__catego__440B1D61">
+        <Association Name="FK__Departmen__depar__72C60C4A">
           <End Role="Department" Type="Self.Department" Multiplicity="1" />
-          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <End Role="DepartmentItemBridge" Type="Self.DepartmentItemBridge" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Department">
               <PropertyRef Name="departmentID" />
             </Principal>
-            <Dependent Role="Category">
-              <PropertyRef Name="categoryDepartment" />
+            <Dependent Role="DepartmentItemBridge">
+              <PropertyRef Name="departmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Departmen__produ__73BA3083">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="DepartmentItemBridge" Type="Self.DepartmentItemBridge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="productID" />
+            </Principal>
+            <Dependent Role="DepartmentItemBridge">
+              <PropertyRef Name="productID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -162,7 +190,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Product__product__49C3F6B7">
+        <Association Name="FK__Product__product__6E01572D">
           <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
@@ -174,7 +202,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Product__product__4AB81AF0">
+        <Association Name="FK__Product__product__6EF57B66">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
@@ -183,6 +211,30 @@
             </Principal>
             <Dependent Role="Product">
               <PropertyRef Name="productCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ShoppingC__cartI__778AC167">
+          <End Role="ShoppingCarts" Type="Self.ShoppingCarts" Multiplicity="1" />
+          <End Role="ShoppingCartItemBridge" Type="Self.ShoppingCartItemBridge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShoppingCarts">
+              <PropertyRef Name="cartID" />
+            </Principal>
+            <Dependent Role="ShoppingCartItemBridge">
+              <PropertyRef Name="cartID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ShoppingC__produ__787EE5A0">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ShoppingCartItemBridge" Type="Self.ShoppingCartItemBridge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="productID" />
+            </Principal>
+            <Dependent Role="ShoppingCartItemBridge">
+              <PropertyRef Name="productID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -240,17 +292,23 @@
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DepartmentItemBridge" EntityType="Self.DepartmentItemBridge" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Email" EntityType="Self.Email" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemDelivery" EntityType="Self.ItemDelivery" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShoppingCartItemBridge" EntityType="Self.ShoppingCartItemBridge" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShoppingCarts" EntityType="Self.ShoppingCarts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserComments" EntityType="Self.UserComments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserQuery" EntityType="Self.UserQuery" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Category__catego__440B1D61" Association="Self.FK__Category__catego__440B1D61">
+          <AssociationSet Name="FK__Departmen__depar__72C60C4A" Association="Self.FK__Departmen__depar__72C60C4A">
             <End Role="Department" EntitySet="Department" />
-            <End Role="Category" EntitySet="Category" />
+            <End Role="DepartmentItemBridge" EntitySet="DepartmentItemBridge" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Departmen__produ__73BA3083" Association="Self.FK__Departmen__produ__73BA3083">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="DepartmentItemBridge" EntitySet="DepartmentItemBridge" />
           </AssociationSet>
           <AssociationSet Name="FK__OrderStat__itemD__5535A963" Association="Self.FK__OrderStat__itemD__5535A963">
             <End Role="ItemDelivery" EntitySet="ItemDelivery" />
@@ -260,13 +318,21 @@
             <End Role="Customers" EntitySet="Customers" />
             <End Role="OrderStatus" EntitySet="OrderStatus" />
           </AssociationSet>
-          <AssociationSet Name="FK__Product__product__49C3F6B7" Association="Self.FK__Product__product__49C3F6B7">
+          <AssociationSet Name="FK__Product__product__6E01572D" Association="Self.FK__Product__product__6E01572D">
             <End Role="Brand" EntitySet="Brand" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
-          <AssociationSet Name="FK__Product__product__4AB81AF0" Association="Self.FK__Product__product__4AB81AF0">
+          <AssociationSet Name="FK__Product__product__6EF57B66" Association="Self.FK__Product__product__6EF57B66">
             <End Role="Category" EntitySet="Category" />
             <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ShoppingC__cartI__778AC167" Association="Self.FK__ShoppingC__cartI__778AC167">
+            <End Role="ShoppingCarts" EntitySet="ShoppingCarts" />
+            <End Role="ShoppingCartItemBridge" EntitySet="ShoppingCartItemBridge" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ShoppingC__produ__787EE5A0" Association="Self.FK__ShoppingC__produ__787EE5A0">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ShoppingCartItemBridge" EntitySet="ShoppingCartItemBridge" />
           </AssociationSet>
           <AssociationSet Name="FK__UserComme__comme__5812160E" Association="Self.FK__UserComme__comme__5812160E">
             <End Role="Users" EntitySet="Users" />
@@ -306,7 +372,7 @@
           <Property Name="brandID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="brandName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="brandDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Product" Relationship="Self.FK__Product__product__49C3F6B7" FromRole="Brand" ToRole="Product" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Product__product__6E01572D" FromRole="Brand" ToRole="Product" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -315,9 +381,7 @@
           <Property Name="categoryID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="categoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="categoryDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="categoryDepartment" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Department" Relationship="Self.FK__Category__catego__440B1D61" FromRole="Category" ToRole="Department" />
-          <NavigationProperty Name="Product" Relationship="Self.FK__Product__product__4AB81AF0" FromRole="Category" ToRole="Product" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Product__product__6EF57B66" FromRole="Category" ToRole="Product" />
         </EntityType>
         <EntityType Name="Customers">
           <Key>
@@ -336,10 +400,20 @@
           <Key>
             <PropertyRef Name="departmentID" />
           </Key>
-          <Property Name="departmentID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="departmentID" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="departmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="departmentDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Category" Relationship="Self.FK__Category__catego__440B1D61" FromRole="Department" ToRole="Category" />
+          <NavigationProperty Name="DepartmentItemBridge" Relationship="Self.FK__Departmen__depar__72C60C4A" FromRole="Department" ToRole="DepartmentItemBridge" />
+        </EntityType>
+        <EntityType Name="DepartmentItemBridge">
+          <Key>
+            <PropertyRef Name="bridgeID" />
+          </Key>
+          <Property Name="bridgeID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="departmentID" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="productID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Department" Relationship="Self.FK__Departmen__depar__72C60C4A" FromRole="DepartmentItemBridge" ToRole="Department" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Departmen__produ__73BA3083" FromRole="DepartmentItemBridge" ToRole="Product" />
         </EntityType>
         <EntityType Name="Email">
           <Key>
@@ -380,9 +454,22 @@
           <Property Name="productPrice" Type="Double" Nullable="false" />
           <Property Name="productQuantity" Type="Int32" Nullable="false" />
           <Property Name="productBrand" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="productImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="productCategory" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Brand" Relationship="Self.FK__Product__product__49C3F6B7" FromRole="Product" ToRole="Brand" />
-          <NavigationProperty Name="Category" Relationship="Self.FK__Product__product__4AB81AF0" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="Brand" Relationship="Self.FK__Product__product__6E01572D" FromRole="Product" ToRole="Brand" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__Product__product__6EF57B66" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="DepartmentItemBridge" Relationship="Self.FK__Departmen__produ__73BA3083" FromRole="Product" ToRole="DepartmentItemBridge" />
+          <NavigationProperty Name="ShoppingCartItemBridge" Relationship="Self.FK__ShoppingC__produ__787EE5A0" FromRole="Product" ToRole="ShoppingCartItemBridge" />
+        </EntityType>
+        <EntityType Name="ShoppingCartItemBridge">
+          <Key>
+            <PropertyRef Name="bridgeID" />
+          </Key>
+          <Property Name="bridgeID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cartID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="productID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__ShoppingC__produ__787EE5A0" FromRole="ShoppingCartItemBridge" ToRole="Product" />
+          <NavigationProperty Name="ShoppingCarts" Relationship="Self.FK__ShoppingC__cartI__778AC167" FromRole="ShoppingCartItemBridge" ToRole="ShoppingCarts" />
         </EntityType>
         <EntityType Name="ShoppingCarts">
           <Key>
@@ -391,6 +478,7 @@
           <Property Name="cartID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cartProductPrice" Type="Double" />
           <Property Name="cartProductQty" Type="Int32" />
+          <NavigationProperty Name="ShoppingCartItemBridge" Relationship="Self.FK__ShoppingC__cartI__778AC167" FromRole="ShoppingCarts" ToRole="ShoppingCartItemBridge" />
           <NavigationProperty Name="Users" Relationship="Self.FK__Users__userCart__3D5E1FD2" FromRole="ShoppingCarts" ToRole="Users" />
         </EntityType>
         <EntityType Name="UserComments">
@@ -429,7 +517,7 @@
           <NavigationProperty Name="UserComments" Relationship="Self.FK__UserComme__comme__5812160E" FromRole="Users" ToRole="UserComments" />
           <NavigationProperty Name="UserQuery" Relationship="Self.FK__UserQuery__query__4F7CD00D" FromRole="Users" ToRole="UserQuery" />
         </EntityType>
-        <Association Name="FK__Product__product__49C3F6B7">
+        <Association Name="FK__Product__product__6E01572D">
           <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
@@ -441,19 +529,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Category__catego__440B1D61">
-          <End Role="Department" Type="Self.Department" Multiplicity="1" />
-          <End Role="Category" Type="Self.Category" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Department">
-              <PropertyRef Name="departmentID" />
-            </Principal>
-            <Dependent Role="Category">
-              <PropertyRef Name="categoryDepartment" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Product__product__4AB81AF0">
+        <Association Name="FK__Product__product__6EF57B66">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
@@ -489,6 +565,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Departmen__depar__72C60C4A">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="DepartmentItemBridge" Type="Self.DepartmentItemBridge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="departmentID" />
+            </Principal>
+            <Dependent Role="DepartmentItemBridge">
+              <PropertyRef Name="departmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Departmen__produ__73BA3083">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="DepartmentItemBridge" Type="Self.DepartmentItemBridge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="productID" />
+            </Principal>
+            <Dependent Role="DepartmentItemBridge">
+              <PropertyRef Name="productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__OrderStat__itemD__5535A963">
           <End Role="ItemDelivery" Type="Self.ItemDelivery" Multiplicity="1" />
           <End Role="OrderStatus" Type="Self.OrderStatus" Multiplicity="*" />
@@ -498,6 +598,30 @@
             </Principal>
             <Dependent Role="OrderStatus">
               <PropertyRef Name="itemDelivery" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ShoppingC__produ__787EE5A0">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ShoppingCartItemBridge" Type="Self.ShoppingCartItemBridge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="productID" />
+            </Principal>
+            <Dependent Role="ShoppingCartItemBridge">
+              <PropertyRef Name="productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ShoppingC__cartI__778AC167">
+          <End Role="ShoppingCarts" Type="Self.ShoppingCarts" Multiplicity="1" />
+          <End Role="ShoppingCartItemBridge" Type="Self.ShoppingCartItemBridge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShoppingCarts">
+              <PropertyRef Name="cartID" />
+            </Principal>
+            <Dependent Role="ShoppingCartItemBridge">
+              <PropertyRef Name="cartID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -537,29 +661,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="iClothingEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="iClothingEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Admin" EntityType="Self.Admin" />
           <EntitySet Name="Brand" EntityType="Self.Brand" />
           <EntitySet Name="Category" EntityType="Self.Category" />
           <EntitySet Name="Customers" EntityType="Self.Customers" />
           <EntitySet Name="Department" EntityType="Self.Department" />
+          <EntitySet Name="DepartmentItemBridge" EntityType="Self.DepartmentItemBridge" />
           <EntitySet Name="Email" EntityType="Self.Email" />
           <EntitySet Name="ItemDelivery" EntityType="Self.ItemDelivery" />
           <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" />
           <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="ShoppingCartItemBridge" EntityType="Self.ShoppingCartItemBridge" />
           <EntitySet Name="ShoppingCarts" EntityType="Self.ShoppingCarts" />
           <EntitySet Name="UserComments" EntityType="Self.UserComments" />
           <EntitySet Name="UserQuery" EntityType="Self.UserQuery" />
           <EntitySet Name="Users" EntityType="Self.Users" />
-          <AssociationSet Name="FK__Product__product__49C3F6B7" Association="Self.FK__Product__product__49C3F6B7">
+          <AssociationSet Name="FK__Product__product__6E01572D" Association="Self.FK__Product__product__6E01572D">
             <End Role="Brand" EntitySet="Brand" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
-          <AssociationSet Name="FK__Category__catego__440B1D61" Association="Self.FK__Category__catego__440B1D61">
-            <End Role="Department" EntitySet="Department" />
-            <End Role="Category" EntitySet="Category" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Product__product__4AB81AF0" Association="Self.FK__Product__product__4AB81AF0">
+          <AssociationSet Name="FK__Product__product__6EF57B66" Association="Self.FK__Product__product__6EF57B66">
             <End Role="Category" EntitySet="Category" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
@@ -571,9 +693,25 @@
             <End Role="Customers" EntitySet="Customers" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
+          <AssociationSet Name="FK__Departmen__depar__72C60C4A" Association="Self.FK__Departmen__depar__72C60C4A">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="DepartmentItemBridge" EntitySet="DepartmentItemBridge" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Departmen__produ__73BA3083" Association="Self.FK__Departmen__produ__73BA3083">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="DepartmentItemBridge" EntitySet="DepartmentItemBridge" />
+          </AssociationSet>
           <AssociationSet Name="FK__OrderStat__itemD__5535A963" Association="Self.FK__OrderStat__itemD__5535A963">
             <End Role="ItemDelivery" EntitySet="ItemDelivery" />
             <End Role="OrderStatus" EntitySet="OrderStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ShoppingC__produ__787EE5A0" Association="Self.FK__ShoppingC__produ__787EE5A0">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ShoppingCartItemBridge" EntitySet="ShoppingCartItemBridge" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ShoppingC__cartI__778AC167" Association="Self.FK__ShoppingC__cartI__778AC167">
+            <End Role="ShoppingCarts" EntitySet="ShoppingCarts" />
+            <End Role="ShoppingCartItemBridge" EntitySet="ShoppingCartItemBridge" />
           </AssociationSet>
           <AssociationSet Name="FK__Users__userCart__3D5E1FD2" Association="Self.FK__Users__userCart__3D5E1FD2">
             <End Role="ShoppingCarts" EntitySet="ShoppingCarts" />
@@ -593,7 +731,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="iClothingModelStoreContainer" CdmEntityContainer="iClothingEntities">
+        <EntityContainerMapping StorageEntityContainer="iClothingModelStoreContainer" CdmEntityContainer="iClothingEntities1">
           <EntitySetMapping Name="Admin">
             <EntityTypeMapping TypeName="iClothingModel.Admin">
               <MappingFragment StoreEntitySet="Admin">
@@ -619,7 +757,6 @@
                 <ScalarProperty Name="categoryID" ColumnName="categoryID" />
                 <ScalarProperty Name="categoryName" ColumnName="categoryName" />
                 <ScalarProperty Name="categoryDescription" ColumnName="categoryDescription" />
-                <ScalarProperty Name="categoryDepartment" ColumnName="categoryDepartment" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -641,6 +778,15 @@
                 <ScalarProperty Name="departmentID" ColumnName="departmentID" />
                 <ScalarProperty Name="departmentName" ColumnName="departmentName" />
                 <ScalarProperty Name="departmentDescription" ColumnName="departmentDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DepartmentItemBridge">
+            <EntityTypeMapping TypeName="iClothingModel.DepartmentItemBridge">
+              <MappingFragment StoreEntitySet="DepartmentItemBridge">
+                <ScalarProperty Name="bridgeID" ColumnName="bridgeID" />
+                <ScalarProperty Name="departmentID" ColumnName="departmentID" />
+                <ScalarProperty Name="productID" ColumnName="productID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -682,7 +828,17 @@
                 <ScalarProperty Name="productPrice" ColumnName="productPrice" />
                 <ScalarProperty Name="productQuantity" ColumnName="productQuantity" />
                 <ScalarProperty Name="productBrand" ColumnName="productBrand" />
+                <ScalarProperty Name="productImage" ColumnName="productImage" />
                 <ScalarProperty Name="productCategory" ColumnName="productCategory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShoppingCartItemBridge">
+            <EntityTypeMapping TypeName="iClothingModel.ShoppingCartItemBridge">
+              <MappingFragment StoreEntitySet="ShoppingCartItemBridge">
+                <ScalarProperty Name="bridgeID" ColumnName="bridgeID" />
+                <ScalarProperty Name="cartID" ColumnName="cartID" />
+                <ScalarProperty Name="productID" ColumnName="productID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

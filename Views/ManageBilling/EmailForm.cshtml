@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "Email Form";
+
+}
+
+@using(Html.BeginForm("SubmitEmailForm", "ManageBilling"))
+{
+<div>
+    <h4>Subject</h4>
+    <input type="text" name="subject" />
+    <h4>Body</h4>
+    <input type="text" name="body" />
+    <input type="submit" value="Submit"/>
+</div>
+}
+

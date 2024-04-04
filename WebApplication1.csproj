@@ -129,13 +129,26 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminsController.cs" />
+    <Compile Include="Controllers\BrandsController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\DepartmentItemBridgesController.cs" />
+    <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\EmailsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItemDeliveriesController.cs" />
     <Compile Include="Controllers\OrderStatusController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ShoppingCartItemBridgesController.cs" />
     <Compile Include="Controllers\ShoppingCartsController.cs" />
+    <Compile Include="Controllers\UserCommentsController.cs" />
+    <Compile Include="Controllers\UserQueriesController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AboutUs.cs" />
     <Compile Include="Models\Admin.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -149,6 +162,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Department.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DepartmentItemBridge.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Email.cs">
@@ -176,6 +192,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Product.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ShoppingCartItemBridge.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ShoppingCarts.cs">
@@ -214,8 +233,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
       <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -275,6 +294,71 @@
     <Content Include="Views\Emails\Details.cshtml" />
     <Content Include="Views\Emails\Edit.cshtml" />
     <Content Include="Views\Emails\Index.cshtml" />
+    <Content Include="Views\Admins\Create.cshtml" />
+    <Content Include="Views\Admins\Delete.cshtml" />
+    <Content Include="Views\Admins\Details.cshtml" />
+    <Content Include="Views\Admins\Edit.cshtml" />
+    <Content Include="Views\Admins\Index.cshtml" />
+    <Content Include="Views\Brands\Create.cshtml" />
+    <Content Include="Views\Brands\Delete.cshtml" />
+    <Content Include="Views\Brands\Details.cshtml" />
+    <Content Include="Views\Brands\Edit.cshtml" />
+    <Content Include="Views\Brands\Index.cshtml" />
+    <Content Include="Views\Customers\Create.cshtml" />
+    <Content Include="Views\Customers\Delete.cshtml" />
+    <Content Include="Views\Customers\Details.cshtml" />
+    <Content Include="Views\Customers\Edit.cshtml" />
+    <Content Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\ItemDeliveries\Create.cshtml" />
+    <Content Include="Views\ItemDeliveries\Delete.cshtml" />
+    <Content Include="Views\ItemDeliveries\Details.cshtml" />
+    <Content Include="Views\ItemDeliveries\Edit.cshtml" />
+    <Content Include="Views\ItemDeliveries\Index.cshtml" />
+    <Content Include="Views\UserComments\Create.cshtml" />
+    <Content Include="Views\UserComments\Delete.cshtml" />
+    <Content Include="Views\UserComments\Details.cshtml" />
+    <Content Include="Views\UserComments\Edit.cshtml" />
+    <Content Include="Views\UserComments\Index.cshtml" />
+    <Content Include="Views\UserQueries\Create.cshtml" />
+    <Content Include="Views\UserQueries\Delete.cshtml" />
+    <Content Include="Views\UserQueries\Details.cshtml" />
+    <Content Include="Views\UserQueries\Edit.cshtml" />
+    <Content Include="Views\UserQueries\Index.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Delete.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Departments\Create.cshtml" />
+    <Content Include="Views\Departments\Delete.cshtml" />
+    <Content Include="Views\Departments\Details.cshtml" />
+    <Content Include="Views\Departments\Edit.cshtml" />
+    <Content Include="Views\Departments\Index.cshtml" />
+    <Content Include="Views\DepartmentItemBridges\Create.cshtml" />
+    <Content Include="Views\DepartmentItemBridges\Delete.cshtml" />
+    <Content Include="Views\DepartmentItemBridges\Details.cshtml" />
+    <Content Include="Views\DepartmentItemBridges\Edit.cshtml" />
+    <Content Include="Views\DepartmentItemBridges\Index.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\ShoppingCartItemBridges\Create.cshtml" />
+    <Content Include="Views\ShoppingCartItemBridges\Delete.cshtml" />
+    <Content Include="Views\ShoppingCartItemBridges\Details.cshtml" />
+    <Content Include="Views\ShoppingCartItemBridges\Edit.cshtml" />
+    <Content Include="Views\ShoppingCartItemBridges\Index.cshtml" />
+    <Content Include="Views\ShoppingCartItemBridges\CF.cshtml" />
+    <Content Include="Views\Products\Men.cshtml" />
+    <Content Include="Views\Users\Register.cshtml" />
+    <Content Include="Views\Users\Login.cshtml" />
+    <Content Include="Views\ShoppingCarts\AddItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

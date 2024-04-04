@@ -1,0 +1,113 @@
+﻿@model WebApplication1.Models.Users
+
+
+
+
+
+
+
+
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<style>
+    .registerPage {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .registerFormContainer {
+        margin-top: 10vh;
+        width: 478px;
+    }
+
+    .registerForm {
+        text-align: left;
+        border: 3px solid green;
+        border-radius: 16px;
+        padding: 48px;
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+
+    .inputTextWrapper {
+    }
+
+    .inputText {
+        width: 100%;
+        height: 5vh;
+    }
+
+    .inputButtonWrapper {
+        margin-top: 5vh;
+    }
+
+    .inputButton {
+        width: 100%;
+        height: 5vh;
+        background-color: green;
+        color: white;
+    }
+
+    .formTitle {
+        padding: 5%;
+        text-align: center;
+    }
+</style>
+
+
+
+
+
+<form action="@Url.Action("Login", "Users")" method="post">
+
+    <div class="registerPage">
+        <div class="registerFormContainer">
+            <div class="registerForm">
+                <div class="formTitle">
+                    <h2>Login</h2>
+
+                </div>
+
+                <div class="inputTextWrapper">
+                    Username
+                    <input type="text" class="form-control" name="userName" />
+                </div>
+                <br />
+                <div class="inputTextWrapper">
+                    Password
+                    <input type="text" class="form-control" name="userPassword" />
+                </div>
+
+                <br />
+                <div class="inputButtonWrapper">
+                    <button class="inputButton" type="submit">Submit</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+@*<form action="@Url.Action("Login", "Users")" method="post">
+    <label for="userName">userName:</label>
+    <input type="text" id="userName" name="userName">
+
+    <label for="userPassword">userPassword:</label>
+    <input type="text" id="userPassword" name="userPassword">
+    <button type="submit">Search Products</button>
+
+
+</form>*@
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
